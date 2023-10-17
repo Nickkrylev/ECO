@@ -23,4 +23,3 @@ CREATE TABLE pollution (
     FOREIGN KEY (ID_factory) REFERENCES factory(ID),
     FOREIGN KEY (ID_polluter) REFERENCES polluter(ID)
 );
-
