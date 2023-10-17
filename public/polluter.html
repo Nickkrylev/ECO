@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>HTML 5 Boilerplate</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+  <body>
+    <footer>
+      <img src="eco.jpg" >
+      <a href="/index.html">Підприємства</a>
+      <a href="/polluter.html">Забрудники</a>
+      <a href="/pollution.html">Забруднення підприємства</a>
+    </footer>
+  <div class="main">
+   <div class="text">Підприємства</div>
+    <table id="table2">
+      <tr>
+        <th>№</th>
+        <th>Назва забруднення</th>
+        <th>ГДК</th>
+        <th>Середньодобова ГДК</th>
+        <th>Клас небезпеки</th>
+      </tr>
+ 
+    
+    </table>
+    <form method="post" enctype="multipart/form-data">
+      <label class="input-file">
+           <input type="file" name="file">		
+           <span>Додати дані</span>
+       </label>
+    </form>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="index.js"></script>
+  <script>
+  let data = null;
+  axios.get('/polluter-data')
+    .then(function (response) {
+      data = JSON.parse(response.data); // JSON.parse не требуется, так как Axios уже разберет JSON
+      console.log(data);
+      // После получения данных, вызывайте функцию для создания строк в таблице
+      CreateRowsInTable("table2", data);
+    })
+    .catch(function (error) {
+      console.error('Ошибка при выполнении GET-запроса:', error);
+    });</script>
+	
+  </body>
+</html>
