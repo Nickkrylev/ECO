@@ -36,16 +36,28 @@
   <script src="index.js"></script>
   <script>
   let data = null;
-  axios.get('/pollution-data')
+  axios.get('/pollution-New-data')
     .then(function (response) {
-      data = JSON.parse(response.data); // JSON.parse не требуется, так как Axios уже разберет JSON
-      console.log(data);
+      data = JSON.parse(response.data); 
+      //console.log(data);
       // После получения данных, вызывайте функцию для создания строк в таблице
       CreateRowsInTable("table3", data);
     })
     .catch(function (error) {
       console.error('Ошибка при выполнении GET-запроса:', error);
-    });</script>
+      axios.get('/pollution-data')
+    .then(function (response) {
+      data = JSON.parse(response.data); 
+      //console.log(data);
+      // После получения данных, вызывайте функцию для создания строк в таблице
+      CreateRowsInTable("table3", data);
+    })
+    .catch(function (error) {
+      console.error('Ошибка при выполнении GET-запроса:', error);
+    });
+    });
+
+    </script>
 	
   </body>
 </html>
