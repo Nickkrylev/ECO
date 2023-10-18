@@ -13,12 +13,12 @@ if (inputFile && displayFileName) {
     formData.append('file', file); // добавляем файл в объект FormData
     let upload = '/upload';
      // указываем метод и URL сервера, куда будет отправлен файл
-    // if(currentUrl === '/pollution.html') upload = '/uploadPollution';
-    // else if (currentUrl === '/polluter.html') upload = '/uploadPolluter';
+     if(currentUrl === '/pollution.html') upload = '/uploadPollution';
+     else if (currentUrl === '/polluter.html') upload = '/uploadPolluter';
     console.log(upload);
     xhr.open('POST', upload);
     xhr.send(formData); // отправляем запрос на сервер с помощью метода send()
-    //alert("Данi получені обновіть сторінку")
+    alert("Данi получені обновіть сторінку")
   });
 
 }
