@@ -48,7 +48,9 @@ app.get('/index.html', function (req, res) {
 app.get('/polluter-data', function (req, res) {
   res.json(db.polluter);
 });
-
+app.get('/Factory-name', function (req, res) {
+  res.json(db.factoryName);
+});
 app.get('/pollution-data', function (req, res) {
   res.json(db.pollution);
 });

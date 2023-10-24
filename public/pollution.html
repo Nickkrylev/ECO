@@ -13,10 +13,15 @@
       <img src="eco.jpg" >
       <a href="/index.html">Підприємства</a>
       <a href="/polluter.html">Забрудники</a>
-      <a href="/pollution.html">Забруднення підприємства</a>
+      <a href="/pollution.html">Викиди підприємств</a>
     </footer>
   <div class="main">
-   <div class="text">Забруднення підприємства</div>
+   <div class="text">Забруднення підприємства
+   <select name = "factoryName" id ="factoryName" class="classic" onchange="changeTable()">
+    <option value="1">Підприємства</option>
+   
+  </div>
+   </select>
     <table id="table3">
       <tr>
         <th>Назва об'єкта</th>
@@ -37,6 +42,16 @@
   <script src="index.js"></script>
   <script>
   let data = null;
+  axios.get('/Factory-name')
+    .then(function (response) {
+      data = JSON.parse(response.data); 
+      
+      //console.log(data);
+      // После получения данных, вызывайте функцию для создания строк в таблице
+      CreateRowsSelection( data);
+    })
+    .catch(function (error) {
+      console.error('Ошибка при выполнении GET-запроса:', error); });
   axios.get('/pollution-New-data')
     .then(function (response) {
       data = JSON.parse(response.data); 
@@ -57,7 +72,8 @@
       console.error('Ошибка при выполнении GET-запроса:', error);
     });
     });
-
+    
+   
     </script>
 	
   </body>

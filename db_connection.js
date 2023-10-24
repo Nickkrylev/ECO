@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 //const readXlsxFile = require('read-excel-file/node')
-let factory , polluter,pollution ;
+let factory , polluter,pollution,factoryName ;
 const sqlDataPollution = 'SELECT f.Name_factory, p.Name_polluter, po.Count_pollution, po.Year_pollution FROM pollution po INNER JOIN factory f ON po.ID_factory = f.ID INNER JOIN polluter p ON po.ID_polluter = p.ID;';
 module.exports.sqlDataPollution = sqlDataPollution;
 //const sqlDataPolluter = 'SELECT * FROM polluter;';
@@ -63,7 +63,12 @@ con.query(sqlDataPollution, function(err, results) {
   
 });
 
-
+con.query("SELECT Name_factory FROM factory;", function(err, results) {
+  if (err) throw err;
+  factoryName = JSON.stringify(results);
+  module.exports.factoryName = factoryName;
+  
+});
 con.query('SELECT * FROM factory;', function(err, results) {
   if (err) throw err;
   factory = JSON.stringify(results);

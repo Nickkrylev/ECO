@@ -35,9 +35,10 @@ function CreateRowsInTable(nameTable, data) {
   for (let i = 0; i < data.length; i++) {
     let tr = document.createElement("tr");
     let obj = Object.values(data[i]);
-  
+    tr.setAttribute("name","tr");
     for (let k = 0; k < obj.length; k++) {
       let td = document.createElement("td");
+      td.setAttribute("name","td");
       //console.log(obj[k])
       td.textContent = "" + obj[k];
       tr.appendChild(td);
@@ -45,5 +46,52 @@ function CreateRowsInTable(nameTable, data) {
 
 
     table.appendChild(tr);
+  }
+}
+//SELECT Name_factory FROM factory;
+function CreateRowsSelection(data) {
+  let selection = document.getElementsByName("factoryName");
+  console.log(data.length);
+
+  for (let i = 0; i < data.length; i++) {
+    let option = document.createElement("option");
+    console.log(i);
+    console.log(data[i].Name_factory);
+    option.textContent = "" + data[i].Name_factory;
+    option.setAttribute("value","" + data[i].Name_factory);
+    // Добавляем созданный элемент <option> к каждому элементу коллекции
+    for (let j = 0; j < selection.length; j++) {
+      selection[j].appendChild(option);
+    }
+  }
+}
+function changeTable(){
+  var  filter, table, tr, td;
+
+
+
+
+ 
+  var selectElement = document.getElementById("factoryName");
+  var selectedOption = selectElement.options[selectElement.selectedIndex];
+  var selectedText = selectedOption.text;
+  
+
+  table = document.getElementById("table3");
+  tr = table.getElementsByTagName("tr");
+ 
+  // Loop through all table rows, and hide those who don't match the search query
+  for (let i = 0; i < tr.length; i++) {
+   
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td && selectedText != 'Підприємства') {
+      if (td.textContent === selectedText) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }else{
+      tr[i].style.display = "";
+    }
   }
 }
