@@ -10,7 +10,7 @@
     
   </head>
   <body>
-    <div class="loader-wrapper"><div class="container">
+    <!--<div class="loader-wrapper"><div class="container">
       <div class="loader">
         <div class="loader">
           <div class="loader">
@@ -22,12 +22,13 @@
           </div>
         </div>
       </div>
-    </div></div>
+    </div></div>-->
     <footer>
       <img src="eco.jpg" >
       <a href="/index.html">Підприємства</a>
       <a href="/polluter.html">Забрудники</a>
       <a href="/pollution.html">Викиди підприємств</a>
+      <a href="/risk.html">Ризики</a>
     </footer>
   <div class="main">
    <div class="text">Підприємства</div>
@@ -37,6 +38,7 @@
         <th>Назва об'єкта</th>
         <th>Адреса</th>
         <th>Додаткова інформація</th>
+        <th>Кількість населення</th>
       </tr>
       
     </table>
@@ -77,19 +79,19 @@
   </script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script>
-$(window).on("load", function() {
-  // Задержка в 2 секунды перед скрытием
-  setTimeout(function() {
-    // Скрыть .loader-wrapper
-    $(".loader-wrapper").fadeOut("slow");
+// $(window).on("load", function() {
+//   // Задержка в 2 секунды перед скрытием
+//   setTimeout(function() {
+//     // Скрыть .loader-wrapper
+//     $(".loader-wrapper").fadeOut("slow");
     
-    // Восстановить скролл (включить overflow)
-    $("body").css("overflow", "auto");
-  }, 1000);
+//     // Восстановить скролл (включить overflow)
+//     $("body").css("overflow", "auto");
+//   }, 1000);
   
-  // Запретить скролл (выключить overflow) перед скрытием
-  $("body").css("overflow", "hidden");
-});
+//   // Запретить скролл (выключить overflow) перед скрытием
+//   $("body").css("overflow", "hidden");
+// });
   </script>
 	
   </body>

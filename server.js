@@ -4,6 +4,7 @@ const multer = require('multer');
 const mysql = require('mysql')
 const readXlsxFile = require('read-excel-file/node');
 const path = require('path');
+const sqlDataRisk = 'SELECT f.Name_factory, p.Name_polluter, po.Count_pollution, po.Concetration,po.SFi,po.RfC FROM pollution po INNER JOIN factory f ON po.ID_factory = f.ID INNER JOIN polluter p ON po.ID_polluter = p.ID;';
 
 const app = express();
 const PORT = 3000;
@@ -33,7 +34,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get('/index.html', function (req, res) {
   const options = {
     root: path.join(__dirname)
-  };
+  }; 
 
   const fileName = '/public/index.html';
   res.sendFile(fileName, options, function (err) {
@@ -61,7 +62,12 @@ app.get('/factory-data', function (req, res) {
   res.json(db.factory);
  
 });
+app.get('/risk-data', function (req, res) {
 
+  
+  db.con.query(sqlDataRisk, function(err, results) { console.log("upload data on server");  res.json(JSON.stringify(results));  });
+ 
+});
 app.post('/upload', uploadFile.single('file'), uploadObjectsToDBFromFile);
 
 async function uploadObjectsToDBFromFile(req, res) {
@@ -115,7 +121,7 @@ async function uploadPollutionToDBFromFile(req, res) {
         }).join(', ')})`;
       }).join(', ');
    
-      const query_bd = `INSERT INTO pollution (ID_factory, ID_polluter, Count_pollution, Year_pollution) VALUES ${values};`;
+      const query_bd = `INSERT INTO pollution (ID_factory, ID_polluter, Count_pollution, Year_pollution,Concetration,SFi,RfC) VALUES ${values};`;
       try {
  
         db.con.query(query_bd);

@@ -1,8 +1,10 @@
 var mysql = require('mysql');
 //const readXlsxFile = require('read-excel-file/node')
 let factory , polluter,pollution,factoryName ;
-const sqlDataPollution = 'SELECT f.Name_factory, p.Name_polluter, po.Count_pollution, po.Year_pollution FROM pollution po INNER JOIN factory f ON po.ID_factory = f.ID INNER JOIN polluter p ON po.ID_polluter = p.ID;';
+const sqlDataRisk = 'SELECT f.Name_factory, p.Name_polluter, po.Count_pollution, po.Concetration FROM pollution po INNER JOIN factory f ON po.ID_factory = f.ID INNER JOIN polluter p ON po.ID_polluter = p.ID;';
+const sqlDataPollution = 'SELECT f.Name_factory, p.Name_polluter, po.Count_pollution, po.Year_pollution,po.Concetration,po.SFi,po.RfC  FROM pollution po INNER JOIN factory f ON po.ID_factory = f.ID INNER JOIN polluter p ON po.ID_polluter = p.ID;';
 module.exports.sqlDataPollution = sqlDataPollution;
+//module.exports.sqlDataPollution = sqlDataRisk;
 //const sqlDataPolluter = 'SELECT * FROM polluter;';
 //module.exports.sqlDataPollution = sqlDataPolluter;
 var con = mysql.createConnection({
@@ -83,6 +85,12 @@ con.query( 'SELECT * FROM polluter;', function(err, results) {
   module.exports.polluter = polluter;
   
 });
+// con.query( 'SELECT * FROM polluter;', function(err, results) {
+//   if (err) throw err;
+//   polluter = JSON.stringify(results);
+//   module.exports.polluter = polluter;
+  
+// });
 // con.end(function(err) {
 //   if (err) throw err;
 //   console.log('Connection DB closed.');

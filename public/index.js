@@ -1,6 +1,22 @@
 const inputFile = document.querySelector('.input-file input[type=file]');
 const displayFileName = inputFile.nextElementSibling;
 const currentUrl = window.location.pathname;
+
+const concerCOnst = {
+  
+
+  Tout:8,
+  Tin: 16,
+  Vout:1.4,
+  Vin: 0.63,
+  EF:350,
+  ED:30,
+  BW:70,
+  AT:70,
+  population:1000000
+}
+
+console.log(concerCOnst);
 console.log(currentUrl);
 if (inputFile && displayFileName) {
   inputFile.addEventListener('change', function () {
@@ -47,6 +63,69 @@ function CreateRowsInTable(nameTable, data) {
 
     table.appendChild(tr);
   }
+}
+function CreateRowsInTableRisk(nameTable, data) {
+  console.log('ffj')
+  let table = document.getElementById(nameTable);
+  
+  for (let i = 0; i < data.length; i++) {
+    let tr = document.createElement("tr");
+    let obj = Object.values(data[i]);
+    tr.setAttribute("name","tr");
+    for (let k = 0; k < obj.length; k++) {
+      let td = document.createElement("td");
+      td.setAttribute("name","td");
+      
+      if(k == obj.length-2 && obj[k] != 0){
+        let concent = obj[k-1] *Math.pow(10, -6);
+        //td.textContent = "" + obj[k];
+        console.log(obj[k]);
+        
+        let math = ((((concent*concerCOnst.Tout*concerCOnst.Vout)+(concent*1*concerCOnst.Tin*concerCOnst.Vin))*concerCOnst.EF*concerCOnst.ED)/(concerCOnst.BW*concerCOnst.AT*365))*obj[k]*concerCOnst.population
+       math *= Math.pow(10, -6);
+        td.textContent = ""+  Math.round(math * 1000000000) / 1000000000;
+       console.log (checkColor(math));
+       tr.style.backgroundColor = checkColor(math);
+      }else if(k == obj.length-1 && obj[k] != 0 && obj[k] != 1){
+         //td.textContent = "" + obj[k];
+        let concentration = obj[k-2] ;
+       // console.log(concentration);
+       let math = (obj[k])/concentration;
+       math *= Math.pow(10, -6);
+       td.textContent = ""+  Math.round(math * 10000000) / 10000000;
+        tr.style.backgroundColor = checkColor(math);
+      }else{
+
+
+      td.textContent = "" + obj[k];}
+      tr.appendChild(td);
+     
+    }
+
+
+    table.appendChild(tr);
+  }
+}
+function checkColor(data) {
+  console.log('start ' + data + "    " + 1 * Math.pow(10, -3));
+  let color = "";
+
+  // Using if statements instead of switch for comparisons
+  if (data > 1 * Math.pow(10, -3)) {
+    color = "red";
+    console.log(color);
+  } else if (data <= 1 * Math.pow(10, -3) && data >= 1 * Math.pow(10, -4)) {
+    color = "orange";
+    console.log(color);
+  } else if (data >= 1 * Math.pow(10, -6) && data < 1 * Math.pow(10, -4)) {
+    color = "yellow";
+    console.log(color);
+  } else if (data < 1 * Math.pow(10, -6)) {
+    color = "green";
+    console.log(color);
+  }
+
+  return color;
 }
 //SELECT Name_factory FROM factory;
 function CreateRowsSelection(data) {

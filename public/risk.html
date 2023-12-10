@@ -16,7 +16,6 @@
       <a href="/pollution.html">Викиди підприємств</a>
       <a href="/risk.html">Ризики</a>
     </footer>
-    </footer>
   <div class="main">
    <div class="text">Забруднення підприємства
    <select name = "factoryName" id ="factoryName" class="classic" onchange="changeTable()">
@@ -29,10 +28,12 @@
         <th>Назва об'єкта</th>
         <th>Назва забруднення</th>
         <th>Кількість викидів</th>
-        <th>Рік</th>
-        <th>Концентарація</th>
-        <th>SFi</th>
-        <th>RFC</th>
+         
+        <th>Концерація</th>
+        <th>Концерагені ризики</th>
+        <th>Не концерагені ризики</th>
+
+        
       </tr>
     
     </table>
@@ -57,21 +58,21 @@
     })
     .catch(function (error) {
       console.error('Ошибка при выполнении GET-запроса:', error); });
-  axios.get('/pollution-New-data')
+  axios.get('/risk-New-data')
     .then(function (response) {
       data = JSON.parse(response.data); 
       //console.log(data);
       // После получения данных, вызывайте функцию для создания строк в таблице
-      CreateRowsInTable("table3", data);
+      CreateRowsInTableRisk("table3", data);
     })
     .catch(function (error) {
       console.error('Ошибка при выполнении GET-запроса:', error);
-      axios.get('/pollution-data')
+      axios.get('/risk-data')
     .then(function (response) {
       data = JSON.parse(response.data); 
       //console.log(data);
       // После получения данных, вызывайте функцию для создания строк в таблице
-      CreateRowsInTable("table3", data);
+      CreateRowsInTableRisk("table3", data);
     })
     .catch(function (error) {
       console.error('Ошибка при выполнении GET-запроса:', error);
