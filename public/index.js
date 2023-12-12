@@ -1,7 +1,7 @@
 const inputFile = document.querySelector('.input-file input[type=file]');
 const displayFileName = inputFile.nextElementSibling;
 const currentUrl = window.location.pathname;
-
+const salary =  6700;
 const concerCOnst = {
   
 
@@ -41,9 +41,6 @@ if (inputFile && displayFileName) {
 // const fileInput = document.getElementById('fileInput'); // получаем элемент input для загрузки файла
 // const file = fileInput.files[0]; // получаем выбранный файл
 
-
-
-// Функция для создания строк в таблице
 function CreateRowsInTable(nameTable, data) {
 
   let table = document.getElementById(nameTable);
@@ -63,6 +60,91 @@ function CreateRowsInTable(nameTable, data) {
 
     table.appendChild(tr);
   }
+}
+function CreateRowsInTableTax(nameTable, data) {
+  
+  let table = document.getElementById(nameTable);
+  
+  for (let i = 0; i < data.length; i++) {
+    let tr = document.createElement("tr");
+    let obj = Object.values(data[i]);
+    tr.setAttribute("name","tr");
+    for (let k = 0; k < obj.length; k++) {
+      let td = document.createElement("td");
+      td.setAttribute("name","td");
+      
+      if(k == obj.length-2 ){
+        let masa = obj[k+1] - obj[k] > 0 ? obj[k+1] - obj[k] : 0 ;
+        masa *= 86544/10000000
+        //td.textContent = "" + obj[k];
+        //console.log(obj[k]); // 86544 * f * 1000000
+       
+        let math = masa*1.1*salary*(1/obj[k])*(obj[k-2]/10000);
+      // math *= Math.pow(10, -6);
+        td.textContent = ""+  Math.round(math * 100) / 100;
+       
+       
+      }else if(k == obj.length-1 && obj[k] != 0 && obj[k] != 1){
+         //td.textContent = "" + obj[k];
+        let tax = obj[k-3] ;
+        obj[k] *= 86544/1000000;
+       // console.log(concentration);
+       let math = obj[k]*tax;
+      
+       td.textContent = ""+  Math.round(math * 100) / 100;
+       // tr.style.backgroundColor = checkColor(math);
+      }else{
+
+
+      td.textContent = "" + obj[k];}
+      tr.appendChild(td);
+     
+    }
+
+
+    table.appendChild(tr);
+  }
+}
+
+// Функция для создания строк в таблице
+function CreateRowsInTable(nameTable, data) {
+
+  let table = document.getElementById(nameTable);
+  
+  for (let i = 0; i < data.length; i++) {
+    let tr = document.createElement("tr");
+    let obj = Object.values(data[i]);
+    tr.setAttribute("name","tr");
+    for (let k = 0; k < obj.length; k++) {
+      let td = document.createElement("td");
+      td.setAttribute("name","td");
+      //console.log(obj[k])
+      td.textContent = "" + obj[k];
+      tr.appendChild(td);
+    }
+    createEditDelete(tr)
+
+    table.appendChild(tr);
+  }
+}
+function createEditDelete(tr){
+  let img = ['edit.png','delete.png'];
+  console.log('start',img.length);
+ 
+      for (let i = 0; i < img.length; i++){
+        console.log("start"+img[i])
+        let td = document.createElement("td");
+        let tagImg = document.createElement('img');
+         tagImg.addEventListener("click", () => {
+          tr.style.disdlay = "none";
+        
+        tagImg.src = img[i];
+        td.setAttribute("name","td");
+        //console.log(obj[k])
+ 
+        td.appendChild(tagImg);
+        tr.appendChild(td);
+      }
 }
 function CreateRowsInTableRisk(nameTable, data) {
   console.log('ffj')
@@ -174,3 +256,5 @@ function changeTable(){
     }
   }
 }
+
+

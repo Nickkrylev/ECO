@@ -23,3 +23,9 @@ CREATE TABLE pollution (
     FOREIGN KEY (ID_factory) REFERENCES factory(ID),
     FOREIGN KEY (ID_polluter) REFERENCES polluter(ID)
 );
+// Обновленя бд 
+ALTER TABLE polluter ADD  Tax DOUBLE NOT NULL;
+ALTER TABLE polluter ADD  SFi DECIMAL(5,5) NOT NULL;
+ALTER TABLE polluter ADD RfC DECIMAL(5,5) NOT NULL;
+ALTER TABLE factory ADD populition INT NOT NULL;
+ALTER TABLE polluter ADD Concetration DECIMAL(5,4) NOT NULL;

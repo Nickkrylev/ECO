@@ -18,18 +18,24 @@
       <a href="/tax.html">Збитки та податки</a>
     </footer>
   <div class="main">
-   <div class="text">Підприємства</div>
-    <table id="table2">
+   <div class="text">Забруднення підприємства
+   <select name = "factoryName" id ="factoryName" class="classic" onchange="changeTable()">
+    <option value="1">Підприємства</option>
+   
+  </div>
+   </select>
+    <table id="table3">
       <tr>
-        <th>№</th>
+        <th>Назва об'єкта</th>
         <th>Назва забруднення</th>
-        <th>ГДК</th>
-        <th>Середньодобова ГДК</th>
-        <th>Клас небезпеки</th>
         <th>Податок за речовину</th>
+        <th>Рік</th>
+        <th>Відшкодування</th>
+        <th>Податок</th>
+     
+
         
       </tr>
- 
     
     </table>
     <form method="post" enctype="multipart/form-data">
@@ -43,26 +49,39 @@
   <script src="index.js"></script>
   <script>
   let data = null;
-  axios.get('/polluter-New-data')
+  axios.get('/Factory-name')
     .then(function (response) {
       data = JSON.parse(response.data); 
-     
-      CreateRowsInTable("table2", data);
+      
+      //console.log(data);
+      // После получения данных, вызывайте функцию для создания строк в таблице
+      CreateRowsSelection( data);
+    })
+    .catch(function (error) {
+      console.error('Ошибка при выполнении GET-запроса:', error); });
+  axios.get('/tax-New-data')
+    .then(function (response) {
+      data = JSON.parse(response.data); 
+      //console.log(data);
+      // После получения данных, вызывайте функцию для создания строк в таблице
+      CreateRowsInTableTax("table3", data);
     })
     .catch(function (error) {
       console.error('Ошибка при выполнении GET-запроса:', error);
-      axios.get('/polluter-data')
+      axios.get('/tax-data')
     .then(function (response) {
       data = JSON.parse(response.data); 
- 
-      CreateRowsInTable("table2", data);
+      //console.log(data);
+      // После получения данных, вызывайте функцию для создания строк в таблице
+      CreateRowsInTableTax("table3", data);
     })
     .catch(function (error) {
       console.error('Ошибка при выполнении GET-запроса:', error);
     });
     });
-
-    </script>
+    
+   
+       </script>
 	
   </body>
 </html>

@@ -5,7 +5,7 @@ const mysql = require('mysql')
 const readXlsxFile = require('read-excel-file/node');
 const path = require('path');
 const sqlDataRisk = 'SELECT f.Name_factory, p.Name_polluter, po.Count_pollution, po.Concetration,po.SFi,po.RfC FROM pollution po INNER JOIN factory f ON po.ID_factory = f.ID INNER JOIN polluter p ON po.ID_polluter = p.ID;';
-
+const sqlDataTax = 'SELECT factory.Name_factory,polluter.Name_polluter,polluter.Tax,pollution.Year_pollution,polluter.GDK,pollution.Count_pollution FROM factory JOIN pollution ON factory.ID = pollution.ID_factory JOIN polluter ON polluter.ID = pollution.ID_polluter;';
 const app = express();
 const PORT = 3000;
 
@@ -66,6 +66,13 @@ app.get('/risk-data', function (req, res) {
 
   
   db.con.query(sqlDataRisk, function(err, results) { console.log("upload data on server");  res.json(JSON.stringify(results));  });
+ 
+});
+
+app.get('/tax-data', function (req, res) {
+
+  
+  db.con.query(sqlDataTax, function(err, results) { console.log("upload data on server");  res.json(JSON.stringify(results));  });
  
 });
 app.post('/upload', uploadFile.single('file'), uploadObjectsToDBFromFile);
